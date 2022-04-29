@@ -1,28 +1,31 @@
 package unannn.inside.domain.user;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import unannn.inside.domain.recruitment.Recruitment;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-@Entity
+import java.util.List;
+@Getter
 @NoArgsConstructor
+@Entity
 public class User {
 
     @Id
     @GeneratedValue
+    @Column(name="user_id")
     private long id;
-    private String userId;
-    private String password;
+    private String email;
     private String userName;
+    private String phoneNumber;
 
-    public User(String userId, String password, String userName) {
-        this.userId = userId;
-        this.password = password;
+    @OneToMany(mappedBy = "user")
+    private List<Recruitment> recruitments = new ArrayList<>();
+
+    public User(String email, String userName, String phoneNumber) {
+        this.email = email;
         this.userName = userName;
+        this.phoneNumber = phoneNumber;
     }
 }
