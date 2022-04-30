@@ -1,13 +1,13 @@
 package unannn.inside.domain.recruitment;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.*;
 import unannn.inside.domain.user.User;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -15,9 +15,8 @@ import java.util.UUID;
 public class Recruitment {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "BINARY(16)")
+    @GeneratedValue
+    @Column(columnDefinition = "BINARY(16)", name = "recruitment_id")
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,5 +30,8 @@ public class Recruitment {
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
+
+    @OneToMany(mappedBy = "recruitment")
+    private List<Question> questions = new ArrayList<>();
 
 }
