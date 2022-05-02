@@ -26,4 +26,12 @@ public abstract class Question {
 
     private String question;
 
+    public void addQuestion(Recruitment recruitment) {
+        if (this.recruitment != null) {
+            this.recruitment.getQuestions().remove(this);
+        }
+        this.recruitment = recruitment;
+        recruitment.getQuestions().add(this);
+    }
+
 }
