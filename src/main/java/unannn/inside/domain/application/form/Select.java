@@ -7,7 +7,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @DiscriminatorValue("SELECT")
-@Entity
+@Entity(name = "SELECTS")
 public class Select extends Answer {
     private String value;
 }
