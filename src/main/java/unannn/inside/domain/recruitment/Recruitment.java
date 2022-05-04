@@ -33,7 +33,7 @@ public class Recruitment {
 
     private LocalDateTime endTime;
 
-    @OneToMany(mappedBy = "recruitment")
+    @OneToMany(mappedBy = "recruitment",fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     private List<Question> questions = new ArrayList<>();
 
     @Builder
@@ -44,13 +44,11 @@ public class Recruitment {
         this.endTime = endTime;
     }
 
-    public void setUser(User user) {
-        if (this.user != null) {
-            this.user.getRecruitments().remove(this);
+    public void addQuestion(Question question) {
+        if (question.getRecruitment() != null) {
+            question.getRecruitment().getQuestions().remove(question);
         }
-        this.user = user;
-        user.getRecruitments().add(this);
+        this.questions.add(question);
+        question.setRecruitment(this);
     }
-
-
 }
