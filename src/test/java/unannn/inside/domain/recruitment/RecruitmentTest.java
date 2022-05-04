@@ -90,4 +90,37 @@ class RecruitmentTest {
         //then
         assertThat(findQuestion.getQuestion()).isEqualTo(question.getQuestion());
     }
+
+    @Test
+    public void Recruiment에_Question추가() throws Exception {
+        //given
+        Question question = new TextForm(100,500);
+        question.setQuestion(1,"이름이 뭐에요?");
+        Recruitment recruitment = getTestRecruitment();
+
+        //when
+
+        recruitment.addQuestion(question); //
+
+        em.persist(recruitment);
+        em.flush();
+        em.clear();
+
+        //then
+        Recruitment findRecruitment = em.find(Recruitment.class, recruitment.getId());
+        assertThat(findRecruitment.getId()).isEqualTo(recruitment.getId());
+
+        List<Question> questions = findRecruitment.getQuestions();
+        assertThat(questions.get(0).getQuestion()).isEqualTo(question.getQuestion());
+    }
+
+    private Recruitment getTestRecruitment() {
+        Recruitment recruitment = Recruitment.builder()
+                .title("과식동아리 모집")
+                .description("과일을 잘 챙겨 먹읍시다")
+                .startTime(LocalDateTime.of(2022, 5, 10, 9, 0))
+                .endTime(LocalDateTime.of(2022, 5, 20, 17, 0))
+                .build();
+        return recruitment;
+    }
 }
