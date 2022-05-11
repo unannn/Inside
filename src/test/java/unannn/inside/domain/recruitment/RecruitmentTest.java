@@ -100,7 +100,7 @@ class RecruitmentTest {
 
         //when
 
-        recruitment.addQuestion(question); //
+        recruitment.addQuestion(question);
 
         em.persist(recruitment);
         em.flush();
@@ -114,6 +114,36 @@ class RecruitmentTest {
         assertThat(questions.get(0).getQuestion()).isEqualTo(question.getQuestion());
     }
 
+    @Test
+    public void User_Recruitment_연결() throws Exception {
+        //given
+        Recruitment recruitment = getTestRecruitment();
+        Question textQuestion = getTextQuestion();
+        recruitment.addQuestion(textQuestion);
+
+        User user = User.builder()
+                .email("woooia1@gmail.com")
+                .userName("이윤환")
+                .phoneNumber("01012345678")
+                .encodedPassword("인코딩된알수없는패스워드")
+                .build();
+
+
+        //when
+        user.register(recruitment);
+        em.persist(user);
+
+        em.flush();
+        em.clear();
+
+        //then
+        User findUser = em.find(User.class, user.getId());
+        assertThat(findUser.getUserName()).isEqualTo(user.getUserName());
+
+        List<Recruitment> recruitments = findUser.getRecruitments();
+        assertThat(recruitments.get(0).getId()).isEqualTo(recruitment.getId());
+    }
+
     private Recruitment getTestRecruitment() {
         Recruitment recruitment = Recruitment.builder()
                 .title("과식동아리 모집")
@@ -122,5 +152,15 @@ class RecruitmentTest {
                 .endTime(LocalDateTime.of(2022, 5, 20, 17, 0))
                 .build();
         return recruitment;
+    }
+
+    private Question getTextQuestion() {
+        Question question = new TextForm(100,500);
+        question.setQuestion(1,"이름이 뭐에요?");
+        return question;
+    }
+
+    static enum QuestionType{
+        TEXT, SELECTS, CHECKBOX
     }
 }
