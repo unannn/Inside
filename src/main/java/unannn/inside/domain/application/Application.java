@@ -1,7 +1,9 @@
 package unannn.inside.domain.application;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import unannn.inside.domain.recruitment.Recruitment;
 import unannn.inside.domain.user.User;
 
@@ -9,7 +11,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Application {
@@ -25,7 +27,15 @@ public class Application {
     @JoinColumn(name="recruitment_id")
     private Recruitment recruitment;
 
-    @OneToMany(mappedBy = "application")
+    @OneToMany(mappedBy = "application", cascade = CascadeType.PERSIST)
     private List<Answer> answers = new ArrayList<>();
+
+    public void storeAnswer(Answer answer) {
+        if (answer.getApplication() != null) {
+            answer.getApplication().getAnswers().remove(answer);
+        }
+        answer.setApplication(this);
+        answers.add(answer);
+    }
 
 }
