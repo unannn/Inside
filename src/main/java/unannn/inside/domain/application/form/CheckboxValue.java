@@ -1,9 +1,11 @@
 package unannn.inside.domain.application.form;
 
+import lombok.NoArgsConstructor;
 import unannn.inside.domain.BooleanToYNConverter;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Entity
 public class CheckboxValue {
 
