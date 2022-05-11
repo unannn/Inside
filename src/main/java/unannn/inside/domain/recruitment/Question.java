@@ -3,6 +3,7 @@ package unannn.inside.domain.recruitment;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import unannn.inside.domain.recruitment.Recruitment;
 
 import javax.persistence.*;
@@ -26,12 +27,13 @@ public abstract class Question {
 
     private String question;
 
-    public void addQuestion(Recruitment recruitment) {
-        if (this.recruitment != null) {
-            this.recruitment.getQuestions().remove(this);
-        }
+    public void setQuestion(int questionNumber, String question){
+        this.questionNumber = questionNumber;
+        this.question = question;
+    }
+
+    protected void setRecruitment(Recruitment recruitment) {
         this.recruitment = recruitment;
-        recruitment.getQuestions().add(this);
     }
 
 }
