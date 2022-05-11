@@ -1,7 +1,9 @@
 package unannn.inside.domain.user;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.aspectj.lang.annotation.AfterReturning;
 import unannn.inside.domain.application.Application;
 import unannn.inside.domain.recruitment.Recruitment;
 
@@ -21,16 +23,28 @@ public class User {
     private String userName;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "user")
+    private String encodedPassword;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Recruitment> recruitments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Application> applications = new ArrayList<>();
 
-
-    public User(String email, String userName, String phoneNumber) {
+    @Builder
+    public User(String email, String userName, String phoneNumber, String encodedPassword) {
         this.email = email;
         this.userName = userName;
         this.phoneNumber = phoneNumber;
+        this.encodedPassword = encodedPassword;
     }
+
+    public void register(Recruitment recruitment) {
+        if(recruitment.getUser() != null){
+            recruitment.getUser().getRecruitments().remove(recruitment);
+        }
+        this.recruitments.add(recruitment);
+        recruitment.setUser(this);
+    }
+
 }
