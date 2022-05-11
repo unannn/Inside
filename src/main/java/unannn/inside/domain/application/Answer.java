@@ -24,4 +24,11 @@ public abstract class Answer {
 
     private Integer questionNumber;
 
+    public Answer(Integer questionNumber) {
+        this.questionNumber = questionNumber;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
 }
