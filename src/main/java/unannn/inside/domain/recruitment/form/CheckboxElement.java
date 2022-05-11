@@ -1,7 +1,11 @@
 package unannn.inside.domain.recruitment.form;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class CheckboxElement {
 
