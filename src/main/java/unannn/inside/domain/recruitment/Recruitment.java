@@ -51,4 +51,8 @@ public class Recruitment {
         this.questions.add(question);
         question.setRecruitment(this);
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
