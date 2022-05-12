@@ -20,7 +20,7 @@ public class Application {
     @Column(name = "application_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private User user;
 
     @OneToOne
@@ -38,4 +38,7 @@ public class Application {
         answers.add(answer);
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

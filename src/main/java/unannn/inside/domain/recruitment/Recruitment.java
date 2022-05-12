@@ -21,7 +21,7 @@ public class Recruitment {
     @Column(columnDefinition = "BINARY(16)", name = "recruitment_id")
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="user_id")
     private User user;
 
