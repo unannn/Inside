@@ -17,8 +17,12 @@ public class CheckboxValue {
     @JoinColumn(name = "answer_id")
     private Checkbox checkbox;
 
-    private String name;
+    private String element;
 
-    @Convert(converter = BooleanToYNConverter.class)
-    private Boolean checked;
+//    @Convert(converter = BooleanToYNConverter.class)
+//    private Boolean checked;
+
+    public CheckboxValue(String element) {
+        this.element = element;
+    }
 }
