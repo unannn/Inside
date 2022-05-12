@@ -12,4 +12,9 @@ import javax.persistence.Entity;
 @Entity(name = "SELECTS")
 public class Select extends Answer {
     private String value;
+
+    public Select(Integer questionNumber, String value) {
+        super(questionNumber);
+        this.value = value;
+    }
 }

@@ -16,4 +16,10 @@ public class Checkbox extends Answer {
     @OneToMany(mappedBy = "checkbox")
     private List<CheckboxValue> elements = new ArrayList<>();
 
+    public Checkbox(Integer questionNumber, List<String> elements){
+        super(questionNumber);
+        for (String element : elements) {
+            this.elements.add(new CheckboxValue(element));
+        }
+    }
 }
