@@ -47,4 +47,12 @@ public class User {
         recruitment.setUser(this);
     }
 
+    public void register(Application application) {
+        if(application.getUser() != null){
+            application.getUser().getApplications().remove(application);
+        }
+        this.applications.add(application);
+        application.setUser(this);
+    }
+
 }
