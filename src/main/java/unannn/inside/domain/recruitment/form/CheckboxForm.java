@@ -7,12 +7,14 @@ import unannn.inside.domain.recruitment.Question;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @DiscriminatorValue("CHECKBOX")
 @NoArgsConstructor
+@Table(name = "checkbox_form")
 @Entity
 public class CheckboxForm extends Question {
     @OneToMany(mappedBy = "checkboxForm")

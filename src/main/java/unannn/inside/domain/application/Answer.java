@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="question_type")
+@DiscriminatorColumn(name="answer_type")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public abstract class Answer {
@@ -20,12 +20,12 @@ public abstract class Answer {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "application_id")
     private Application application;
 
-    private Integer questionNumber;
-
-    public Answer(Integer questionNumber) {
-        this.questionNumber = questionNumber;
+    private Integer answerNumber;
+    public Answer(Integer answerNumber) {
+        this.answerNumber = answerNumber;
     }
 
     public void setApplication(Application application) {

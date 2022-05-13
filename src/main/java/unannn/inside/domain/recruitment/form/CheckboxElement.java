@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "checkbox_element")
 @Entity
 public class CheckboxElement {
 
@@ -14,11 +15,10 @@ public class CheckboxElement {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
     private CheckboxForm checkboxForm;
-    private String name;
+    private String element;
 
-    public CheckboxElement(String name) {
-        this.name = name;
+    public CheckboxElement(String element) {
+        this.element = element;
     }
 }

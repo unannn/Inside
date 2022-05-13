@@ -5,8 +5,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name="select_element")
+@Entity
 public class SelectElement {
 
     @Id
@@ -16,9 +17,9 @@ public class SelectElement {
     @ManyToOne(fetch = FetchType.LAZY)
     private SelectForm selectForm;
 
-    private String name;
+    private String element;
 
-    public SelectElement(String name) {
-        this.name = name;
+    public SelectElement(String element) {
+        this.element = element;
     }
 }

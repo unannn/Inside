@@ -17,10 +17,10 @@ public abstract class Question {
 
     @Id
     @GeneratedValue
-    @Column(name = "question_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recruitment_id")
     private Recruitment recruitment;
 
     private Integer questionNumber;
@@ -35,5 +35,4 @@ public abstract class Question {
     protected void setRecruitment(Recruitment recruitment) {
         this.recruitment = recruitment;
     }
-
 }

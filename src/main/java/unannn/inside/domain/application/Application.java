@@ -21,6 +21,7 @@ public class Application {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToOne

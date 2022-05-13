@@ -9,10 +9,9 @@ import javax.persistence.Entity;
 
 @NoArgsConstructor
 @DiscriminatorValue("SELECT")
-@Entity(name = "SELECTS")
+@Entity(name = "selects")
 public class Select extends Answer {
     private String value;
-
     public Select(Integer questionNumber, String value) {
         super(questionNumber);
         this.value = value;
