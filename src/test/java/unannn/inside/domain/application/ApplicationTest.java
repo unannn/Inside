@@ -58,7 +58,7 @@ class ApplicationTest {
         assertThat(answer).isNotNull();
         assertThat(answer.getId()).isEqualTo(text.getId());
 
-        assertThat(answer.getQuestionNumber()).isEqualTo(textQuestion.getQuestionNumber());
+        assertThat(answer.getAnswerNumber()).isEqualTo(textQuestion.getQuestionNumber());
     }
 
 
@@ -95,7 +95,7 @@ class ApplicationTest {
         assertThat(answer).isNotNull();
         assertThat(answer.getId()).isEqualTo(checkbox.getId());
 
-        assertThat(answer.getQuestionNumber()).isEqualTo(checkboxQuestion.getQuestionNumber());
+        assertThat(answer.getAnswerNumber()).isEqualTo(checkboxQuestion.getQuestionNumber());
 
         //Application 영속화할 때 CACADE를 통해 User 엔티티도 업데이트
         assertThat(user.getApplications().size()).isEqualTo(1);
@@ -131,7 +131,7 @@ class ApplicationTest {
         assertThat(answer).isNotNull();
         assertThat(answer.getId()).isEqualTo(select.getId());
 
-        assertThat(answer.getQuestionNumber()).isEqualTo(selectQuestion.getQuestionNumber());
+        assertThat(answer.getAnswerNumber()).isEqualTo(selectQuestion.getQuestionNumber());
 
         //Application 영속화할 때 CACADE를 통해 User 엔티티도 업데이트
         assertThat(user.getApplications().size()).isEqualTo(1);
