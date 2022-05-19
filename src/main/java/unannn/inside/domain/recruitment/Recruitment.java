@@ -33,7 +33,9 @@ public class Recruitment {
 
     private LocalDateTime endTime;
 
-    @OneToMany(mappedBy = "recruitment",fetch = FetchType.LAZY,cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "recruitment",fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true)
     private List<Question> questions = new ArrayList<>();
 
     @Builder
