@@ -5,19 +5,18 @@ import lombok.Getter;
 import lombok.Setter;
 import unannn.inside.web.valid.Tel;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
 public class JoinDto {
 
     @NotBlank
+    @Pattern(regexp = "[a-z\\d_-]{5,20}", message = "5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 가능합니다")
     private String username;
 
     @NotBlank
+    @Pattern(regexp = "[a-z\\d!@#$%^&*_+=-]{8,20}", message = "8~20자의 영문 소문자, 숫자와 특수기호(!@#$%^&*_-+=)만 가능합니다.")
     private String password;
 
     @NotBlank
