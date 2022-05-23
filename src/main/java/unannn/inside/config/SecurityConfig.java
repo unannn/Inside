@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import unannn.inside.config.auth.LoginFailedHandler;
+import unannn.inside.config.auth.AuthFailureHandler;
 
 @RequiredArgsConstructor
 @EnableWebSecurity //스프링 시큐리티 필터가 스프링 필터체인에 등록이 됩니다.
@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login") //권한 없이 권한이 필요한 페이지로 접근시 해당 페이지 GET 요청
                 .loginProcessingUrl("/login") // /login 으로 POST 요청 시 시큐리티가 낚아채서 대신 로그인을 진행
                 .defaultSuccessUrl("/user") //로그인이 완료되면 이동할 url
-                .failureHandler(new LoginFailedHandler())
+                .failureHandler(new AuthFailureHandler())
 
         /**
          * //구글 로그인이 완료된 뒤의 후처리 필요.
