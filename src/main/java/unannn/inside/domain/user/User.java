@@ -20,7 +20,7 @@ public class User {
     @Column(name="user_id")
     private long id;
     private String email;
-    private String userName;
+    private String username;
     private String phoneNumber;
 
     private String encodedPassword;
@@ -32,9 +32,9 @@ public class User {
     private List<Application> applications = new ArrayList<>();
 
     @Builder
-    public User(String email, String userName, String phoneNumber, String encodedPassword) {
+    public User(String email, String username, String phoneNumber, String encodedPassword) {
         this.email = email;
-        this.userName = userName;
+        this.username = username;
         this.phoneNumber = phoneNumber;
         this.encodedPassword = encodedPassword;
     }
