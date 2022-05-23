@@ -38,7 +38,6 @@ public class HomeController {
         model.addAttribute("loginDto", loginDto);
         if(!loginDto.getUsername().isEmpty() && !loginDto.getPassword().isEmpty()){
             bindingResult.reject("InvalidAccount");
-            return "loginForm";
         }
         return "loginForm";
     }
