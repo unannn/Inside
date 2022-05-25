@@ -3,7 +3,9 @@ package unannn.inside.web.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import unannn.inside.web.valid.Password;
 import unannn.inside.web.valid.Tel;
+import unannn.inside.web.valid.Username;
 
 import javax.validation.constraints.*;
 
@@ -11,10 +13,13 @@ import javax.validation.constraints.*;
 @Setter
 public class JoinDto {
 
-    @Pattern(regexp = "[a-z\\d_-]{5,20}")
+    @NotBlank
+    @Username
     private String username;
 
-    @Pattern(regexp = "[a-z\\d!@#$%^&*_+=-]{8,20}")
+
+    @NotBlank
+    @Password
     private String password;
 
     @NotBlank
