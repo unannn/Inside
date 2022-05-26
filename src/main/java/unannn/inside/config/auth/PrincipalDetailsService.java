@@ -1,6 +1,7 @@
 package unannn.inside.config.auth;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import unannn.inside.domain.user.User;
 import unannn.inside.domain.user.UserRepository;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class PrincipalDetailsService implements UserDetailsService {
@@ -16,10 +18,12 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.debug("call PrincipalDetailsService");
         User findUser = userRepository.findByUsername(username);
         if(findUser != null){
             return new PrincipalDetails(findUser);
         }
-        return null;
+
+        throw new UsernameNotFoundException(username);
     }
 }
