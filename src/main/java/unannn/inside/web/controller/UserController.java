@@ -38,11 +38,15 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(@Valid JoinDto joinDto, BindingResult bindingResult) {
+    public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model) {
+
+        model.asMap().entrySet().forEach(System.out::println);
+
 
         if(!joinDto.getPassword().equals(joinDto.getVerifyPassword())){
             bindingResult.reject("NotSamePassword");
         }
+
 
         if(bindingResult.hasErrors()){
             log.debug("errors = {}", bindingResult.getAllErrors());
@@ -50,6 +54,7 @@ public class UserController {
         }
 
         //검증 로직 수행
+
 
         User user = User.builder()
                 .username(joinDto.getUsername())
