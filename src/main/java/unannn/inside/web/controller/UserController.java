@@ -26,9 +26,10 @@ public class UserController {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @GetMapping
-    public String user(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
-        System.out.println(principalDetails.getUsername());
+    public String userMain(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         model.addAttribute("username",principalDetails.getUsername());
+        model.addAttribute("applications", principalDetails.getUser().getApplications());
+        model.addAttribute("recruitments", principalDetails.getUser().getRecruitments());
         return "userMain";
     }
 
