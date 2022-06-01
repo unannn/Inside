@@ -5,10 +5,10 @@
 
 - Thymeleaf 
 - spring-boot 2.6.6
+- spring MVC
 - spring security
 - JPA
 - junit 4
-
 
 ## 개발 일지 & 이슈
 
