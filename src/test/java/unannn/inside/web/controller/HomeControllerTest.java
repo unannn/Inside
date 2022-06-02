@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(HomeController.class)
@@ -22,10 +24,15 @@ class HomeControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void homeTest() throws Exception {
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/login"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+    public void loginPage() throws Exception {
+        mockMvc.perform(get("/login"))
+                .andExpect(status().isOk());
     }
 
+    @Test
+    public void loginOk() throws Exception {
+        mockMvc.perform(post("/login")
+                        .param("username", "asdf").param("password", "asdf"))
+                .andExpect(status().isOk());
+    }
 }
