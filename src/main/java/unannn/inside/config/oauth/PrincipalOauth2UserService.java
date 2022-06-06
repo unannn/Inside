@@ -39,7 +39,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
         User userEntity = userRepository.findByUsername(username);
         if (userEntity == null) {
-            User.builder()
+            userEntity = User.builder()
                     .username(username)
                     .encodedPassword(password)
                     .email(email)
