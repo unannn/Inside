@@ -29,6 +29,6 @@ public class JoinDto {
     @Email
     private String email;
 
-    @Tel
-    private String phoneNumber;
+//    @Tel
+//    private String phoneNumber;
 }
