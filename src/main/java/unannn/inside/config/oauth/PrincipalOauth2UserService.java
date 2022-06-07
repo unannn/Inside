@@ -30,13 +30,13 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
          */
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        String provider = userRequest.getClientRegistration().getClientId();
+        String provider = userRequest.getClientRegistration().getRegistrationId();
         String providerId = oAuth2User.getAttribute("sub");
         String username = provider + "_" + providerId;
         String password = UUID.randomUUID().toString();
         String email = oAuth2User.getAttribute("email");
         String role = "ROLE_USER";
-
+        System.out.println(userRequest.getClientRegistration());
         User userEntity = userRepository.findByUsername(username);
         if (userEntity == null) {
             userEntity = User.builder()
@@ -45,6 +45,9 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .email(email)
                     .phoneNumber(null)
                     .build();
+
+            //회원가입
+            userRepository.save(userEntity);
         }
         return new PrincipalDetails(userEntity, oAuth2User.getAttributes());
     }
