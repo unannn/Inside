@@ -21,6 +21,8 @@ public class User {
     private long id;
     private String email;
     private String username;
+
+    @Column(nullable = true)
     private String phoneNumber;
 
     private String encodedPassword;
