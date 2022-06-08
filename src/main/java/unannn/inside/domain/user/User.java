@@ -22,6 +22,8 @@ public class User {
     private String email;
     private String username;
 
+    private String name;
+
     @Column(nullable = true)
     private String phoneNumber;
 
@@ -34,9 +36,10 @@ public class User {
     private List<Application> applications = new ArrayList<>();
 
     @Builder
-    public User(String email, String username, String phoneNumber, String encodedPassword) {
+    public User(String email, String username, String name, String phoneNumber, String encodedPassword) {
         this.email = email;
         this.username = username;
+        this.name = name;
         this.phoneNumber = phoneNumber;
         this.encodedPassword = encodedPassword;
     }
