@@ -17,49 +17,18 @@ import unannn.inside.web.dto.JoinDto;
 
 import javax.validation.Valid;
 
-@Slf4j
-@RequiredArgsConstructor
 @RequestMapping("/user")
 @Controller
 public class UserController {
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @GetMapping
     public String userMain(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
-        model.addAttribute("username",principalDetails.getUsername());
+        model.addAttribute("name",principalDetails.getName());
         model.addAttribute("applications", principalDetails.getUser().getApplications());
         model.addAttribute("recruitments", principalDetails.getUser().getRecruitments());
         return "userMain";
     }
 
-    @GetMapping("/join")
-    public String joinForm(Model model) {
-        model.addAttribute("joinDto", new JoinDto());
-        return "joinForm";
-    }
 
-    @PostMapping("/join")
-    public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model) {
-
-        if(!joinDto.getPassword().equals(joinDto.getVerifyPassword())){
-            bindingResult.reject("NotSamePassword");
-        }
-
-        if(bindingResult.hasErrors()){
-            log.debug("errors = {}", bindingResult.getAllErrors());
-            return "joinForm";
-        }
-
-        User user = User.builder()
-                .username(joinDto.getUsername())
-                .encodedPassword(bCryptPasswordEncoder.encode(joinDto.getPassword()))
-                .email(joinDto.getEmail())
-                .build();
-
-
-        userRepository.save(user);
-
-        return "redirect:/login";
-    }
 }
