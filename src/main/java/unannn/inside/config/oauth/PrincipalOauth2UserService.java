@@ -1,6 +1,9 @@
 package unannn.inside.config.oauth;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.hibernate.annotations.NotFound;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -8,9 +11,13 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import unannn.inside.config.auth.PrincipalDetails;
+import unannn.inside.config.oauth.provider.GoogleUserInfo;
+import unannn.inside.config.oauth.provider.NaverUserInfo;
+import unannn.inside.config.oauth.provider.OAuth2UserInfo;
 import unannn.inside.domain.user.User;
 import unannn.inside.domain.user.UserRepository;
 
+import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -30,19 +37,24 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
          */
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
+
         String provider = userRequest.getClientRegistration().getRegistrationId();
-        String providerId = oAuth2User.getAttribute("sub");
-        String username = provider + "_" + providerId;
-        String password = UUID.randomUUID().toString();
-        String email = oAuth2User.getAttribute("email");
-        String role = "ROLE_USER";
-        System.out.println(userRequest.getClientRegistration());
-        User userEntity = userRepository.findByUsername(username);
+        OAuth2UserInfo oAuth2UserInfo = null;
+        if (provider.equals("google")) {
+            oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        } else if (provider.equals("naver")) {
+            oAuth2UserInfo = new NaverUserInfo(oAuth2User.getAttribute("response"));
+        }else{
+            throw new OAuth2AuthenticationException("요청 Provider 미지원");
+        }
+
+        User userEntity = userRepository.findByUsername(oAuth2UserInfo.getUsername());
         if (userEntity == null) {
             userEntity = User.builder()
-                    .username(username)
-                    .encodedPassword(password)
-                    .email(email)
+                    .username(oAuth2UserInfo.getUsername())
+                    .encodedPassword(UUID.randomUUID().toString())
+                    .email(oAuth2UserInfo.getEmail())
+                    .name(oAuth2UserInfo.getName())
                     .phoneNumber(null)
                     .build();
 
