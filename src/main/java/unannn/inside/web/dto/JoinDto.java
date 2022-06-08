@@ -26,6 +26,9 @@ public class JoinDto {
     private String verifyPassword;
 
     @NotBlank
+    private String name;
+
+    @NotBlank
     @Email
     private String email;
 
