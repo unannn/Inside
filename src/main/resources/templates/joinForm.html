@@ -33,17 +33,23 @@
                     </div>
                 </div>
                 <div class="form-floating mb-3 text-start">
+                    <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="이름">
+                    <label for="name">이름</label>
+                    <div class="alert alert-danger mt-1 py-1" role="alert" th:errors="*{name}">
+                    </div>
+                </div>
+                <div class="form-floating mb-3 text-start">
                     <input type="text" class="form-control" id="email" th:field="*{email}" placeholder="Email">
                     <label for="email">Email</label>
                     <div class="alert alert-danger mt-1 py-1" role="alert" th:errors="*{email}">
                     </div>
                 </div>
-                <div class="form-floating mb-3 text-start">
+<!--                <div class="form-floating mb-3 text-start">
                     <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" placeholder="휴대폰 번호">
                     <label for="phoneNumber">휴대폰 번호</label>
                     <div class="alert alert-danger mt-1 py-1" role="alert" th:errors="*{phoneNumber}">
                     </div>
-                </div>
+                </div>-->
                 <button class="btn btn-primary mt-1 py-3 w-100" type="submit">가입하기</button>
             </form>
             <div class="float-right">
