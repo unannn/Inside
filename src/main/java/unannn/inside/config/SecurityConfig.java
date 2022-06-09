@@ -24,7 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/user/join").not().authenticated()
                 .antMatchers("/user/**").authenticated() //인증만 되면 들어갈 수 있는 주소!!
 //                .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
 //                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
@@ -36,8 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login") //권한 없이 권한이 필요한 페이지로 접근시 해당 페이지 GET 요청
                 .loginProcessingUrl("/login") // /login 으로 POST 요청 시 시큐리티가 낚아채서 대신 로그인을 진행
                 .defaultSuccessUrl("/user") //로그인이 완료되면 이동할 url
-
-
                 .failureHandler(new AuthFailureHandler())
 
         /**
@@ -51,8 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login()
                 .loginPage("/login")  //구글 로그인을 하면 엑세스 토큰 + 사용자 프로필을 한번에 받음
+                .defaultSuccessUrl("/user")
                 .userInfoEndpoint()
-                .userService(principalOauth2UserService);
+                .userService(principalOauth2UserService)
+                ;
+
     }
 
     @Bean
