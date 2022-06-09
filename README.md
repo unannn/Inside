@@ -14,3 +14,8 @@
 
 [프로젝트 'Inside'] 기본 도메인 설계와 개발 과정, 느낀 점
 - https://unannn.tistory.com/94
+
+<br>
+
+[Inside] Spring Security formLogin 사용 시 입력값 검증
+- https://unannn.tistory.com/95
