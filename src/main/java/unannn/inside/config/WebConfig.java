@@ -12,7 +12,7 @@ import javax.servlet.Filter;
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
-    public FilterRegistrationBean LoginValidationFilter() {
+    public FilterRegistrationBean<Filter> LoginValidationFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new LoginValidationFilter());
         filterRegistrationBean.setOrder(-101);
