@@ -19,3 +19,8 @@
 
 [Inside] Spring Security formLogin 사용 시 입력값 검증
 - https://unannn.tistory.com/95
+
+<br>
+
+[Inside] failed to lazily initialize a collection of role 오류 해결
+- https://unannn.tistory.com/96
