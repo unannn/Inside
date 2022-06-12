@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/defaultLayout :: layout (~{::title}, ~{::section})}"
+      lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inside : home</title>
+</head>
+<body>
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center" th:object="${user}">
+            <div class="float-right">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit"  class="btn btn-secondary mt-1 py-1"  style="float: right" value="로그아웃">
+                </form>
+            </div>
+            <h1 class="my-5 fw-bold">
+                <a href="/" class="text-decoration-none text-reset">INSIDE</a>
+            </h1>
+            <h1 class="my-5 fw-bold" th:text="|${user.name}님, 안녕하세요!|"></h1>
+            <div class=" text-center" style="min-height: 20%" >
+                <h3 class="my-5 fw-bold">내 지원서</h3>
+                <div th:if="*{applications.size() != 0}">
+
+                </div>
+                <div th:if="*{applications.size() == 0}">
+                    현재 작성한 지원서가 없습니다.
+                </div>
+            </div>
+            <div class="text-center" style="min-height: 20%" >
+                <h3 class="my-5 fw-bold">내가 만든 공고</h3>
+                <div th:if="*{applications.size() != 0}">
+
+                </div>
+                <div th:if="*{recruitments.size() == 0}">
+                    현재 모집 중인 공고가 없습니다.
+                </div>
+                <a class="btn btn-primary mt-3 py-1" href="#" >새 공고 만들기</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>
