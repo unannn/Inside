@@ -7,7 +7,9 @@
 <section>
     <div class="row justify-content-center">
         <div class="col-md-6 text-center" style="max-width: 400px">
-            <h1 class="my-5 fw-bold">INSIDE</h1>
+            <h1 class="my-5 fw-bold">
+                <a href="/" class="text-decoration-none text-reset">INSIDE</a>
+            </h1>
             <form th:action method="POST" th:object="${loginDto}">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="아이디">
