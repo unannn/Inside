@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/defaultLayout :: layout (~{::title}, ~{::section})}"
+      lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="|${error} : Inside|">4XX ERROR : Inside</title>
+</head>
+<body>
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center" style="max-width: 400px">
+            <h1 class="my-5 fw-bold">
+                <a href="/" class="text-decoration-none text-reset">INSIDE</a>
+            </h1>
+            <div class="row justify-content-center">
+                <h3 th:text="|${status} ${error} 에러입니다.|">오류 페이지 입니다.</h3>
+            </div>
+            <div class="float-right">
+                <a class="btn btn-secondary mt-1 py-1" href="/" style="float: right">홈으로</a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
