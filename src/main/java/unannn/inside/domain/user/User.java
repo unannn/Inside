@@ -19,14 +19,20 @@ public class User {
     @GeneratedValue
     @Column(name="user_id")
     private long id;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String username;
 
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = true)
     private String phoneNumber;
 
+    @Column(nullable = false)
     private String encodedPassword;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
