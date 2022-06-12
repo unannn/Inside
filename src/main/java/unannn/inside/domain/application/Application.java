@@ -24,7 +24,7 @@ public class Application {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="recruitment_id")
     private Recruitment recruitment;
 
