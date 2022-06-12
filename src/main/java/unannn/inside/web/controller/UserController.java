@@ -8,41 +8,84 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import unannn.inside.config.auth.PrincipalDetails;
-import unannn.inside.domain.application.Application;
-import unannn.inside.domain.recruitment.Recruitment;
 import unannn.inside.domain.user.User;
 import unannn.inside.domain.user.UserRepository;
 import unannn.inside.web.dto.JoinDto;
+import unannn.inside.web.dto.LoginDto;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/user")
 @Controller
 public class UserController {
 
     private final UserRepository userRepository;
-
     private final EntityManager em;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     @GetMapping
-    public String userMain(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+    public String userForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        if(principalDetails == null){
+            return "redirect:/login";
+        }
 
         User loginUser = em.merge(principalDetails.getUser()); //준영속 상태의 엔티티를 다시 영속상태로 변경
-
-        model.addAttribute("name", loginUser.getName());
-        model.addAttribute("applications", loginUser.getApplications());
-        model.addAttribute("recruitments", loginUser.getRecruitments());
-        return "userMain";
+        model.addAttribute("user", loginUser);
+        return "mainForm";
     }
 
+    @GetMapping("/login")
+    public String loginForm(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        if (principalDetails != null) {
+            return "redirect:/";
+        }
 
+        model.addAttribute("loginDto", new LoginDto("",""));
+        return "loginForm";
+    }
+
+    @PostMapping("/login")
+    public String login(@Valid @ModelAttribute LoginDto loginDto, BindingResult bindingResult, Model model) {
+        model.addAttribute("loginDto", loginDto);
+        if (!loginDto.getUsername().isEmpty() && !loginDto.getPassword().isEmpty()) {
+            bindingResult.reject("InvalidAccount");
+        }
+        return "loginForm";
+    }
+
+    @GetMapping("/join")
+    public String joinForm(Model model) {
+        model.addAttribute("joinDto", new JoinDto());
+        return "joinForm";
+    }
+
+    @PostMapping("/join")
+    public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model) {
+
+        if(!joinDto.getPassword().equals(joinDto.getVerifyPassword())){
+            bindingResult.reject("NotSamePassword");
+        }
+
+        if(bindingResult.hasErrors()){
+            log.debug("errors = {}", bindingResult.getAllErrors());
+            return "joinForm";
+        }
+
+        User user = User.builder()
+                .username(joinDto.getUsername())
+                .name(joinDto.getName())
+                .encodedPassword(bCryptPasswordEncoder.encode(joinDto.getPassword()))
+                .email(joinDto.getEmail())
+                .build();
+
+
+        userRepository.save(user);
+
+        return "redirect:/login";
+    }
 }
