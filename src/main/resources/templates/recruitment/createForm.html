@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/defaultLayout :: layout (~{::title}, ~{::section})}"
+      lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inside : 모집 공고 생성</title>
+</head>
+<body>
+<section>
+    <button th:onclick="test()" th:text="test"></button>
+    <form id="recruitment-form">
+        <div th:object="${recruitment}">
+
+        </div>
+    </form>
+    <script>
+        function test() {
+            const token = $("meta[name='_csrf']").attr("content");
+            const header = $("meta[name='_csrf_header']").attr("content");
+            console.log(header +':'+token);
+            $.ajax({
+                type: "POST",
+                url: "/recruitment/test",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header,token);
+                }
+            })
+                .done(function (result) {
+                    console.log(result);
+                })
+                .fail(function(e) {
+                    //실패시
+                })
+                .always(function() {
+                    //요청, 응답 결과에 상관없이, 이건 항상 실행됩니다.
+                })
+        }
+    </script>
+</section>
+</body>
+</html>
