@@ -14,6 +14,8 @@ import unannn.inside.domain.user.User;
 import unannn.inside.domain.user.UserRepository;
 import unannn.inside.web.dto.JoinDto;
 import unannn.inside.web.dto.LoginDto;
+import unannn.inside.web.dto.UserDto;
+import unannn.inside.web.service.UserService;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -23,38 +25,45 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
 
-    private final UserRepository userRepository;
-    private final EntityManager em;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserService userService;
 
-    @Transactional
     @GetMapping
     public String userForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+
+        //인증되지 않은 사용자의 경우 로그인 페이지로 리다이렉트
         if(principalDetails == null){
             return "redirect:/login";
         }
 
-        User loginUser = em.merge(principalDetails.getUser()); //준영속 상태의 엔티티를 다시 영속상태로 변경
-        model.addAttribute("user", loginUser);
+        UserDto loginUserDto = userService.createUserFormAttribute(principalDetails.getUser());
+        model.addAttribute("user", loginUserDto);
+
         return "mainForm";
     }
 
     @GetMapping("/login")
     public String loginForm(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        //인증된 사용자의 경우 메인페이지로 리다이렉트
         if (principalDetails != null) {
             return "redirect:/";
         }
 
         model.addAttribute("loginDto", new LoginDto("",""));
+
         return "loginForm";
     }
 
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute LoginDto loginDto, BindingResult bindingResult, Model model) {
-        model.addAttribute("loginDto", loginDto);
+
+        //username 과 password 가 모두 입력되었는데 인증에 실패했을 경우
         if (!loginDto.getUsername().isEmpty() && !loginDto.getPassword().isEmpty()) {
             bindingResult.reject("InvalidAccount");
         }
+
+        model.addAttribute("loginDto", loginDto);
+
         return "loginForm";
     }
 
@@ -76,15 +85,7 @@ public class UserController {
             return "joinForm";
         }
 
-        User user = User.builder()
-                .username(joinDto.getUsername())
-                .name(joinDto.getName())
-                .encodedPassword(bCryptPasswordEncoder.encode(joinDto.getPassword()))
-                .email(joinDto.getEmail())
-                .build();
-
-
-        userRepository.save(user);
+        userService.join(joinDto);
 
         return "redirect:/login";
     }
