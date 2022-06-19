@@ -176,7 +176,7 @@ class ApplicationTest {
     private User getTestUser() {
         return User.builder()
                 .email("woooia1@gmail.com")
-                .userName("이윤환")
+                .username("이윤환")
                 .phoneNumber("01012345678")
                 .encodedPassword("인코딩된알수없는패스워드")
                 .build();
