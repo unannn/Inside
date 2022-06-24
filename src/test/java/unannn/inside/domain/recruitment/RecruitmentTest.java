@@ -68,7 +68,6 @@ class RecruitmentTest {
         //then
         assertThat(findQuestion.getElements().size()).isEqualTo(question.getElements().size());
         assertThat(findQuestion.getQuestion()).isEqualTo(question.getQuestion());
-
     }
     
     @Test
@@ -123,7 +122,7 @@ class RecruitmentTest {
 
         User user = User.builder()
                 .email("woooia1@gmail.com")
-                .userName("이윤환")
+                .username("이윤환")
                 .phoneNumber("01012345678")
                 .encodedPassword("인코딩된알수없는패스워드")
                 .build();
@@ -138,7 +137,7 @@ class RecruitmentTest {
 
         //then
         User findUser = em.find(User.class, user.getId());
-        assertThat(findUser.getUserName()).isEqualTo(user.getUserName());
+        assertThat(findUser.getUsername()).isEqualTo(user.getUsername());
 
         List<Recruitment> recruitments = findUser.getRecruitments();
         assertThat(recruitments.get(0).getId()).isEqualTo(recruitment.getId());

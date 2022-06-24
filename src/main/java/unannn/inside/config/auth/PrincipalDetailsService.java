@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import unannn.inside.domain.user.User;
 import unannn.inside.domain.user.UserRepository;
 
@@ -18,7 +19,9 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         User findUser = userRepository.findByUsername(username);
+
         if(findUser != null){
             return new PrincipalDetails(findUser);
         }
