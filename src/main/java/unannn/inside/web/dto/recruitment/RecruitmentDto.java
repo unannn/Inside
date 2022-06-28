@@ -35,6 +35,8 @@ public class RecruitmentDto {
                 .id(recruitment.getId())
                 .title(recruitment.getTitle())
                 .description(recruitment.getDescription())
+                .startTime(recruitment.getStartTime())
+                .endTime(recruitment.getEndTime())
                 .build();
     }
 }
