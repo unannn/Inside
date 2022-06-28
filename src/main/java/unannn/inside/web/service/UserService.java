@@ -58,8 +58,10 @@ public class UserService {
      * 새로운 모집공고 생성, 업데이트된 모집공고 리스트 반환
      * */
     @Transactional
-    public List<RecruitmentDto> addRecruitment(User user) {
+    public void addNewRecruitment(User user) {
         LocalDateTime defaultTime = LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0, 0);
+
+        user = userRepository.save(user);
 
         Recruitment newRecruitment = Recruitment.builder()
                 .startTime(defaultTime)
@@ -69,9 +71,5 @@ public class UserService {
                 .build();
 
         user.register(newRecruitment);
-
-        return user.getRecruitments().stream()
-                .map(RecruitmentDto::toDto)
-                .collect(Collectors.toList());
     }
 }
