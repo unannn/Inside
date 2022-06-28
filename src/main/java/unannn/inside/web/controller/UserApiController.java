@@ -26,13 +26,12 @@ public class UserApiController {
 
     @GetMapping("/api/recruitments")
     public List<RecruitmentDto> userRecruitmentList(@AuthenticationPrincipal PrincipalDetails userDetails) {
-        log.debug("userService = {}",userService);
-        log.debug("userDetails = {}",userDetails);
         return userService.getUserRecruitments(userDetails.getUser());
     }
 
     @PostMapping("/api/recruitments/new")
     public List<RecruitmentDto> newRecruitment(@AuthenticationPrincipal PrincipalDetails userDetails) {
-        return userService.addRecruitment(userDetails.getUser());
+        userService.addNewRecruitment(userDetails.getUser());
+        return userService.getUserRecruitments(userDetails.getUser());
     }
 }
