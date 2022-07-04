@@ -1,10 +1,12 @@
 package unannn.inside.domain.recruitment.form;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="select_element")
 @Entity
