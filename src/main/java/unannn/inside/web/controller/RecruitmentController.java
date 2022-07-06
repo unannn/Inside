@@ -11,6 +11,7 @@ import unannn.inside.config.auth.PrincipalDetails;
 import unannn.inside.domain.recruitment.Recruitment;
 import unannn.inside.domain.user.User;
 import unannn.inside.web.dto.recruitment.RecruitmentDto;
+import unannn.inside.web.service.RecruitmentService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -23,20 +24,17 @@ import java.util.stream.Collectors;
 @Controller
 public class RecruitmentController {
 
+    private final RecruitmentService recruitmentService;
     /*
      * 모집 공고 수정 페이지
      * */
     @GetMapping("/{recruitmentId}/edit")
     @ResponseBody
-    public String editForm(Model model, @PathVariable UUID recruitmentId) {
-        model.addAttribute("recruitmentDto", new RecruitmentDto());
-        return "recruitment/createForm";
-    }
+    public String editForm(Model model, @PathVariable UUID recruitmentId) throws Exception {
 
-    @PostMapping("/test")
-    public @ResponseBody String test(HttpServletRequest request) {
-        String token = request.getHeader("X-CSRF-TOKEN");
-        log.info("token = {}", token);
-        return "hello jquery";
+        RecruitmentDto recruitmentDto = recruitmentService.getRecruitmentForm(recruitmentId);
+        model.addAttribute("recruitmentDto", recruitmentDto);
+
+        return "recruitment/createForm";
     }
 }
