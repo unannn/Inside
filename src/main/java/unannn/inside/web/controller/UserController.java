@@ -3,22 +3,23 @@ package unannn.inside.web.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import unannn.inside.config.auth.PrincipalDetails;
+import unannn.inside.domain.recruitment.Recruitment;
 import unannn.inside.domain.user.User;
-import unannn.inside.domain.user.UserRepository;
-import unannn.inside.web.dto.JoinDto;
-import unannn.inside.web.dto.LoginDto;
-import unannn.inside.web.dto.UserDto;
+import unannn.inside.web.dto.recruitment.RecruitmentDto;
+import unannn.inside.web.dto.user.JoinDto;
+import unannn.inside.web.dto.user.LoginDto;
+import unannn.inside.web.dto.user.UserDto;
 import unannn.inside.web.service.UserService;
 
-import javax.persistence.EntityManager;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,6 +28,9 @@ public class UserController {
 
     private final UserService userService;
 
+    /*
+    * 유저 메인 페이지
+    * */
     @GetMapping
     public String userForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
 
