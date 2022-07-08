@@ -1,6 +1,5 @@
 package unannn.inside.web.dto.recruitment;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,16 +20,20 @@ public class RecruitmentDto {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    private List<QuestionDto> questionDtos;
+
     @Builder
-    public RecruitmentDto(UUID id, String title, String description, LocalDateTime startTime, LocalDateTime endTime) {
+    public RecruitmentDto(UUID id, String title, String description, LocalDateTime startTime, LocalDateTime endTime, List<QuestionDto> questionDtos) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.questionDtos = questionDtos;
     }
 
     public static RecruitmentDto toDto(Recruitment recruitment) {
+
         return RecruitmentDto.builder()
                 .id(recruitment.getId())
                 .title(recruitment.getTitle())
