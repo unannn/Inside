@@ -1,4 +1,4 @@
-package unannn.inside.web.dto;
+package unannn.inside.web.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
