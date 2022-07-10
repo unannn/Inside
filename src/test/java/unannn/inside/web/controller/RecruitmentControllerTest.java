@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultHandler;
 import unannn.inside.web.dto.recruitment.RecruitmentDto;
+import unannn.inside.web.service.RecruitmentService;
+import unannn.inside.web.service.UserService;
 
 import java.util.ArrayList;
 
@@ -26,4 +28,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class RecruitmentControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private RecruitmentService recruitmentService;
+
+    void 모집공고수정_페이지() {
+        mockMvc.perform()
+    }
 }
