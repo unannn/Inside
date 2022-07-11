@@ -2,7 +2,6 @@ package unannn.inside.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import unannn.inside.web.dto.AddQuestionDto;
 import unannn.inside.web.dto.NewQuestionDto;
 import unannn.inside.web.dto.recruitment.QuestionType;
 import unannn.inside.web.dto.recruitment.RecruitmentDto;
