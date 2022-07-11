@@ -20,9 +20,4 @@ public class TextForm  extends Question {
     private Integer minimumLetter;
     private Integer maximumLetter;
 
-    public TextForm(Integer minimumLetter, Integer maximumLetter) {
-        this.minimumLetter = minimumLetter;
-        this.maximumLetter = maximumLetter;
-
-    }
 }
