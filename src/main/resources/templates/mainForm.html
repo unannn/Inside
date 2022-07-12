@@ -37,18 +37,20 @@
                 <ul id="recruitment-list">
                 <!--       공고 리스트 추가          -->
                 </ul>
-                <button th:onclick="">새 공고 추가</button>
+                <button th:onclick="createNewRecruitment()">새 공고 추가</button>
             </div>
 
         </div>
     </div>
     <script>
-        fetch("https://localhost:8080/api/recruitments", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        }).then((response) => console.log(response));
+        function createNewRecruitment() {
+            fetch("https://localhost:8080/api/recruitments/new", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }).then((response) => console.log(response));
+        }
 
         const li = document.createElement("li");
         document.getElementById('recruitment-list').appendChild(li);
