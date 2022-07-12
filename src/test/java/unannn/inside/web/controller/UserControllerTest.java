@@ -1,9 +1,5 @@
 package unannn.inside.web.controller;
 
-import com.nimbusds.common.contenttype.ContentType;
-import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import unannn.inside.web.dto.JoinDto;
+import unannn.inside.web.dto.user.JoinDto;
 import unannn.inside.web.service.UserService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +19,6 @@ import static org.springframework.security.test.web.servlet.response.SecurityMoc
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.thymeleaf.spring5.util.FieldUtils.globalErrors;
 
 //@ExtendWith(SpringExtension.class)
 @RunWith(SpringRunner.class)
