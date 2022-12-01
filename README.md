@@ -3,7 +3,7 @@
 
 ## 개발 스택
 
-- Thymeleaf 
+- Thymeleaf => Vue.js 로 변경 예정
 - spring-boot 2.6.6
 - spring MVC
 - spring security
